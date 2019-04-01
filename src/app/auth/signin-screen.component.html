@@ -1,0 +1,19 @@
+<form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+  <mat-form-field>
+    <input
+      matInput
+      placeholder="Usuario"
+      formControlName="user"
+      id="user">
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      type = "password"
+      matInput
+      placeholder="Contraseña"
+      formControlName="password"
+      id="password">
+  </mat-form-field>
+  <button type="submit" mat-raised-button color="accent"> Iniciar Sesión </button>
+  <p style="text-align: center"> Si no tienes usuario habla con el administrador</p>
+</form>

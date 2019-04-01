@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,17 +12,21 @@ import { MaterialModule } from './material.module';
 import 'hammerjs';
 
 import { HomeKontrolComponent } from './home-kontrol/home.component';
+import { SigninScreenComponent } from './auth/signin-screen.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeKontrolComponent
+    HomeKontrolComponent,
+    SigninScreenComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
