@@ -14,13 +14,15 @@ import 'hammerjs';
 import { HomeKontrolComponent } from './home-kontrol/home.component';
 import { SigninScreenComponent } from './auth/signin-screen.component';
 import { ConfigurationScreenComponent } from './configuration-screen/configuration-screen.component';
+import { KontrolsScreenComponent } from './kontrols-screen/kontrols-screen.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeKontrolComponent,
     SigninScreenComponent,
-    ConfigurationScreenComponent
+    ConfigurationScreenComponent,
+    KontrolsScreenComponent
   ],
   imports: [
     BrowserModule,
