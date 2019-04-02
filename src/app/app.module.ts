@@ -17,6 +17,9 @@ import { ConfigurationScreenComponent } from './configuration-screen/configurati
 import { KontrolsScreenComponent } from './kontrols-screen/kontrols-screen.component';
 import { KordersScreenComponent } from './korders-screen/korders-screen.component';
 
+import { Routing } from './app.routing';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +35,8 @@ import { KordersScreenComponent } from './korders-screen/korders-screen.componen
     MaterialModule,
     BrowserAnimationsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    Routing
   ],
   providers: [],
   bootstrap: [AppComponent]
