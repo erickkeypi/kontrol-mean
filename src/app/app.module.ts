@@ -15,6 +15,7 @@ import { HomeKontrolComponent } from './home-kontrol/home.component';
 import { SigninScreenComponent } from './auth/signin-screen.component';
 import { ConfigurationScreenComponent } from './configuration-screen/configuration-screen.component';
 import { KontrolsScreenComponent } from './kontrols-screen/kontrols-screen.component';
+import { KordersScreenComponent } from './korders-screen/korders-screen.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { KontrolsScreenComponent } from './kontrols-screen/kontrols-screen.compo
     HomeKontrolComponent,
     SigninScreenComponent,
     ConfigurationScreenComponent,
-    KontrolsScreenComponent
+    KontrolsScreenComponent,
+    KordersScreenComponent
   ],
   imports: [
     BrowserModule,

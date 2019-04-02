@@ -1,19 +1,12 @@
 import { Component } from '@angular/core';
-import { Kontrol } from './kontrol.model';
+import { Korder } from './korder.model';
 
-const c = new Kontrol(
-  'Arduino',
-  '1234'
-);
+const o = new Korder('orden');
 
 @Component({
-  selector: 'app-kontrols-screen',
-  templateUrl: './kontrols-screen.component.html',
+  selector: 'app-korders-screen',
+  templateUrl: './korders-screen.component.html',
   styles: [`
-    .space{
-      flex: auto;
-    }
-
     div {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -31,7 +24,8 @@ const c = new Kontrol(
   `]
 })
 
-export class KontrolsScreenComponent {
-  kontroles: Kontrol[] = new Array(9).fill(c);
+export class KordersScreenComponent {
+  nombre = 'Arduino';
 
+  kordenes: Korder[] = new Array(9).fill(o);
 }

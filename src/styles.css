@@ -11,3 +11,7 @@ form {
   width: 90%;
   margin: 20px;
 }
+
+.space{
+  flex: auto;
+}

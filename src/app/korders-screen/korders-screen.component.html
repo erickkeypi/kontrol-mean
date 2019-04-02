@@ -1,11 +1,11 @@
 <mat-toolbar color="secondary">
   <span class="space"></span>
-  <span> Kontroles </span>
+  <span> {{ nombre }} </span>
   <span class="space"></span>
 </mat-toolbar>
 <div class="atras-div">
   <button mat-raised-button color="primary"> Atrás </button>
 </div>
 <div>
-  <button  mat-raised-button color="accent" *ngFor="let kontrol of kontroles"> {{kontrol.kname}} </button>
+  <button  mat-raised-button color="accent" *ngFor="let korder of kordenes"> {{korder.kname}} </button>
 </div>
