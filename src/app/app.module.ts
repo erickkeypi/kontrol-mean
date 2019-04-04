@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { HttpModule } from '@angular/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +17,7 @@ import { ConfigurationScreenComponent } from './configuration-screen/configurati
 import { KontrolsScreenComponent } from './kontrols-screen/kontrols-screen.component';
 import { KordersScreenComponent } from './korders-screen/korders-screen.component';
 
+import { MomentModule } from 'angular2-moment';
 import { Routing } from './app.routing';
 
 
@@ -36,7 +37,9 @@ import { Routing } from './app.routing';
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    Routing
+    Routing,
+    MomentModule,
+    HttpModule
   ],
   providers: [],
   bootstrap: [AppComponent]

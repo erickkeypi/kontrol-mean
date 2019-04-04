@@ -1,10 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Kontrol } from './kontrol.model';
-
-const c = new Kontrol(
-  'Arduino',
-  '1234'
-);
+import { KontrolService } from './kontrol.service';
 
 @Component({
   selector: 'app-kontrols-screen',
@@ -28,10 +24,21 @@ const c = new Kontrol(
       display: block;
       margin: 10px;
     }
-  `]
+  `],
+  providers: [KontrolService]
 })
 
-export class KontrolsScreenComponent {
-  kontroles: Kontrol[] = new Array(9).fill(c);
+export class KontrolsScreenComponent implements OnInit {
 
+  constructor(private kontrolService: KontrolService) {}
+
+  kontroles: Kontrol[];
+
+  ngOnInit() {
+    this.kontrolService
+      .getKontrols()
+      .then((kontrols: Kontrol[]) => {
+        this.kontroles = kontrols;
+      });
+  }
 }
