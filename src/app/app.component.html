@@ -1,7 +1,22 @@
 <mat-toolbar color="primary">
   <span> {{nombre}} </span>
-  <span class="space"></span>
-  <span *ngIf="isLoggedIn()"> {{userName()}} </span>
+
+  <!-- <span *ngIf="isLoggedIn()"> {{userName()}} </span> -->
+<span class="space" *ngIf="isLoggedIn()"></span>
+  <div *ngIf="isLoggedIn()">
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+    <span *ngIf="isLoggedIn()"> {{userName()}} </span>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item disabled>
+        {{ userName() }}
+      </button>
+      <button mat-menu-item (click)="logout()">
+        Cerrar sesion
+      </button>
+    </mat-menu>
+  </div>
+  <span></span>
 </mat-toolbar>
 
 <router-outlet></router-outlet>

@@ -26,4 +26,7 @@ export class AppComponent implements OnInit {
   userName() {
     return this.authService.currentUser.usuario;
   }
+  logout() {
+    this.authService.logout();
+  }
 }
