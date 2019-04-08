@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Korder } from './korder.model';
+import { AuthService } from '../auth/auth.service';
+import { Router } from '@angular/router';
+
 
 const o = new Korder('orden');
 
@@ -24,8 +27,19 @@ const o = new Korder('orden');
   `]
 })
 
-export class KordersScreenComponent {
+export class KordersScreenComponent implements OnInit {
   nombre = 'Arduino';
 
   kordenes: Korder[] = new Array(9).fill(o);
+
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
+
+  ngOnInit() {
+    if ( !this.authService.isLoggedIn() ) {
+      this.router.navigateByUrl('/');
+    }
+  }
 }

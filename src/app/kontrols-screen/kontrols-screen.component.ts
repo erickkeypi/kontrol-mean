@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Kontrol } from './kontrol.model';
 import { KontrolService } from './kontrol.service';
+import { AuthService } from '../auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-kontrols-screen',
@@ -30,11 +32,18 @@ import { KontrolService } from './kontrol.service';
 
 export class KontrolsScreenComponent implements OnInit {
 
-  constructor(private kontrolService: KontrolService) {}
+  constructor(
+    private kontrolService: KontrolService,
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   kontroles: Kontrol[];
 
   ngOnInit() {
+    if ( !this.authService.isLoggedIn() ) {
+      this.router.navigateByUrl('/');
+    }
     this.kontrolService
       .getKontrols()
       .then((kontrols: Kontrol[]) => {

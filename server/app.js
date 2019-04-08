@@ -1,7 +1,12 @@
 import express from 'express'
-import { kontrol } from './routes'
+import { kontrolRoute } from './kontrol'
+import bodyParser from 'body-parser'
+import { authRoute } from './auth'
 
 const app = express()
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true}))
 
 if(process.env.NODE_ENV === 'development'){
   app.use((req, res, next) =>{
@@ -11,6 +16,7 @@ if(process.env.NODE_ENV === 'development'){
     next()
   })
 }
-app.use('/api/kontrols',kontrol)
+app.use('/api/kontrols',kontrolRoute)
+app.use('/api/signin', authRoute)
 
 export default app

@@ -1,6 +1,7 @@
 <mat-toolbar color="primary">
   <span> {{nombre}} </span>
   <span class="space"></span>
+  <span *ngIf="isLoggedIn()"> {{userName()}} </span>
 </mat-toolbar>
 
 <router-outlet></router-outlet>
