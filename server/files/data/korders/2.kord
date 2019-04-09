@@ -1,0 +1,11 @@
+
+{
+kname: Encender;
+kode: enc;
+ktype: v;
+}
+{
+kname: Apagar;
+kode: apa;
+ktype: v;
+}

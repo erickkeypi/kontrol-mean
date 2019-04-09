@@ -2,6 +2,7 @@ import express from 'express'
 import { kontrolRoute } from './kontrol'
 import bodyParser from 'body-parser'
 import { authRoute } from './auth'
+import {leerArchivoKontroles, kontroles} from './files'
 
 const app = express()
 
@@ -18,5 +19,6 @@ if(process.env.NODE_ENV === 'development'){
 }
 app.use('/api/kontrols',kontrolRoute)
 app.use('/api/signin', authRoute)
+leerArchivoKontroles()
 
 export default app

@@ -1,0 +1,21 @@
+
+{
+kname: Apagar;
+kode: apa;
+ktype: v;
+}
+{
+kname: Encender;
+kode: enc;
+ktype: v;
+}
+{
+kname: Cambiar Intervalo;
+kode: int;
+ktype: i;
+}
+{
+kname: Parpadeo;
+kode: par;
+ktype: v;
+}
