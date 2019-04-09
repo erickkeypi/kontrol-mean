@@ -26,6 +26,11 @@ import { Router } from '@angular/router';
       display: block;
       margin: 10px;
     }
+    mat-spinner {
+    position: absolute;
+    bottom: 45%;
+    left: 35%;
+    }
   `],
   providers: [KontrolService]
 })
@@ -39,8 +44,11 @@ export class KontrolsScreenComponent implements OnInit {
   ) {}
 
   kontroles: Kontrol[];
+  loading = true;
 
   ngOnInit() {
+    localStorage.removeItem('kmac');
+
     if ( !this.authService.isLoggedIn() ) {
       this.router.navigateByUrl('/');
     }
@@ -48,10 +56,9 @@ export class KontrolsScreenComponent implements OnInit {
       .getKontrols()
       .then((kontrols: Kontrol[]) => {
         this.kontroles = kontrols;
+        this.loading = false;
       });
   }
-  accion(kon) {
-    console.log(kon);
-  }
+  setKmac(kmac) {localStorage.setItem('kmac', kmac); }
 
 }

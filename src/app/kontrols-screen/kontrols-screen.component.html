@@ -1,11 +1,13 @@
-<mat-toolbar color="secondary">
+<mat-spinner *ngIf="loading"></mat-spinner>
+
+<mat-toolbar *ngIf="!loading" color="secondary">
   <span class="space"></span>
   <span> Kontroles </span>
   <span class="space"></span>
 </mat-toolbar>
-<div class="atras-div">
+<div *ngIf="!loading" class="atras-div">
   <button [routerLink]="['/home']" mat-raised-button color="primary"> Atrás </button>
 </div>
-<div>
-  <button  mat-raised-button color="accent" *ngFor="let kontrol of kontroles" [routerLink]="['/kontrols',kontrol.kid]"> {{kontrol.kname}} </button>
+<div *ngIf="!loading">
+  <button  mat-raised-button color="accent" *ngFor="let kontrol of kontroles" [routerLink]="['/kontrols',kontrol.kid]" (click)="setKmac(kontrol.kmac)"> {{kontrol.kname}} </button>
 </div>

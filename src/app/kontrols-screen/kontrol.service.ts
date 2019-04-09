@@ -20,17 +20,10 @@ export class KontrolService {
           .then(response => response.json() as Kontrol[])
           .catch(this.handleError);
   }
-  getKontrol(id): Promise<void | Kontrol> {
-    const url = urljoin(this.kontrolsUrl, id);
-    return this.http.get(url)
-          .toPromise()
-          .then(response => response.json() as Kontrol)
-          .catch(this.handleError);
-  }
-
   handleError(error: any) {
   const errMsg = error.message ? error.message :
   error.status ? `${error.status} - ${error.statusText}` : 'server error';
   console.log(errMsg);
   }
+
 }

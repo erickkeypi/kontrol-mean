@@ -23,6 +23,11 @@ import { KordersService } from './korders.service';
       display: block;
       margin: 10px;
     }
+    mat-spinner {
+    position: absolute;
+    bottom: 45%;
+    left: 35%;
+    }
   `],
   providers: [KordersService]
 })
@@ -57,5 +62,12 @@ export class KordersScreenComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy() {
       this.sub.unsubscribe();
+  }
+
+  enviarOrden(kode: string) {
+    const kmac = localStorage.getItem('kmac');
+    this.kordersService.enviarOrden({kmac, kode})
+      .subscribe()
+    ;
   }
 }

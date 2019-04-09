@@ -1,11 +1,13 @@
-<mat-toolbar color="secondary">
+<mat-spinner *ngIf="loading"></mat-spinner>
+
+<mat-toolbar *ngIf="!loading" color="secondary">
   <span class="space"></span>
   <span> {{ nombre }} </span>
   <span class="space"></span>
 </mat-toolbar>
-<div class="atras-div">
+<div *ngIf="!loading" class="atras-div">
   <button [routerLink]="['/kontrols']" mat-raised-button color="primary"> Atrás </button>
 </div>
 <div *ngIf="!loading">
-  <button  mat-raised-button color="accent" *ngFor="let korder of kordenes"> {{korder.kname}} </button>
+  <button  mat-raised-button color="accent" *ngFor="let korder of kordenes" (click)="enviarOrden(korder.kode)"> {{korder.kname}} </button>
 </div>

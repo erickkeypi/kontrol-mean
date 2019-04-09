@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers, Response  } from '@angular/http';
 import { environment } from '../../environments/environment';
 import urljoin from 'url-join';
 import { Korder } from './korder.model';
-
+import { Observable } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable()
 
@@ -12,6 +13,17 @@ export class KordersService {
 
   constructor( private http: Http) {
     this.kontrolsUrl = urljoin(environment.apiUrl, 'kontrols');
+  }
+
+  enviarOrden(mensaje) {
+    const body = JSON.stringify(mensaje);
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const url = urljoin(environment.apiUrl, 'korder');
+    return this.http.post(url , body, { headers })
+          .pipe(
+              map( (response: Response) => response.json()),
+              catchError((error: Response) => Observable.throw(error.json()))
+          );
   }
 
   getKorders(id): Promise<void | Korder[]> {

@@ -1,21 +1,16 @@
 import express from 'express'
 import jwt from 'jsonwebtoken'
 import { secret } from '../config'
+import fs from 'fs'
 
 const app = express()
 
-const users = [
-  {
-    usuario: 'kirec',
-    password: '123456',
-    _id: '100'
-  },
-  {
-    usuario: 'cocolo',
-    password: '123456',
-    _id: '101'
-  }
-]
+var users
+
+fs.readFile(`${__dirname}/users.txt`,'utf8',(err,data)=>{
+  users = JSON.parse(data)
+});
+
 
 app.post('/',(req,res) =>{
   const { usuario, password } = req.body
