@@ -76,17 +76,61 @@ function leerKdirecciones(){
     for (let k in ko){
       let pos =ko[k].indexOf(':');
       kdirecciones [ko[k].substring(0,pos)] = ko[k].substring(pos+1).trim();
+      // res.status(200).json(kontroles)
     }
   });
 }
+function obtenerKordenes(dat){
+  dat = insertString(dat,"\n","}");
+  var ko= dat.match(RegExp('{([\r\n]*.+;)+[\r\n]*}','g'));
+  return convertirKordenes(ko);
+}
 
+function convertirKordenes(kontroles){
+  var kon = [];
+  for ( let i in kontroles){
+    kon.push(agregarKorden(kontroles[i]));
+  }
+  return(kon);
+}
+function agregarKorden(kontrol){
+  var nameIndex = kontrol.indexOf("kname:")+6;
+  var kodeIndex = kontrol.indexOf("kode:")+5;
+  var typeIndex = kontrol.indexOf("ktype:")+6;
+  var endName = kontrol.indexOf(";",nameIndex);
+  var endKode = kontrol.indexOf(";",kodeIndex);
+  var endType = kontrol.indexOf(";",typeIndex);
 
-export var kontroles = []
+  var name = kontrol.substring(nameIndex,endName).trim();
+  var kode = kontrol.substring(kodeIndex,endKode).trim();
+  var type = kontrol.substring(typeIndex,endType).trim();
+
+  var kon = {
+    kname: name,
+    kode:kode,
+    ktype:type
+  }
+
+  return (kon);
+}
+
+///////////////////////////////////////////////////
 export var kdirecciones = {}
-
-export const leerArchivoKontroles = () => {
+export const leerArchivoKontroles = (res) => {
   fs.readFile(`${__dirname}/data/data.ktrl`,'utf-8',(err,data)=>{
-    kontroles = obtenerKontroles(data)
+    let kontroles = obtenerKontroles(data)
     leerKdirecciones()
+    res.status(200).json(kontroles)
+  });
+}
+export const leerArchivoKordenes = (id, res) => {
+  fs.readFile(`${__dirname}/data/korders/${id}.kord`,
+    'utf-8',
+    (err,data)=>{
+      let ordenes = obtenerKordenes(data)
+      // console.log(ordenes)
+      // res.status(200).json({kname: 'mom'})
+      res.status(200).json(ordenes)
+    // console.log(data)
   });
 }

@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Korder } from './korder.model';
 import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
-
-
-const o = new Korder('orden');
+import { ActivatedRoute } from '@angular/router';
+import { KordersService } from './korders.service';
 
 @Component({
   selector: 'app-korders-screen',
@@ -24,22 +23,39 @@ const o = new Korder('orden');
       display: block;
       margin: 10px;
     }
-  `]
+  `],
+  providers: [KordersService]
 })
 
-export class KordersScreenComponent implements OnInit {
+export class KordersScreenComponent implements OnInit, OnDestroy {
   nombre = 'Arduino';
 
-  kordenes: Korder[] = new Array(9).fill(o);
+  kordenes: Korder[];
+  loading = true;
+  sub: any;
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
+    private kordersService: KordersService
   ) {}
 
   ngOnInit() {
     if ( !this.authService.isLoggedIn() ) {
       this.router.navigateByUrl('/');
     }
+
+    this.sub = this.route.params.subscribe(params => {
+      this.kordersService
+        .getKorders(params.id)
+        .then((korders: Korder[]) => {
+          this.kordenes = korders;
+          this.loading = false;
+        });
+    });
+  }
+  ngOnDestroy() {
+      this.sub.unsubscribe();
   }
 }

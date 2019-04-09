@@ -50,4 +50,8 @@ export class KontrolsScreenComponent implements OnInit {
         this.kontroles = kontrols;
       });
   }
+  accion(kon) {
+    console.log(kon);
+  }
+
 }

@@ -1,17 +1,20 @@
 import express from 'express'
-import {kontroles, kdirecciones} from '../files'
+import {
+  leerArchivoKontroles,
+  leerArchivoKordenes
+} from '../files'
 
 const app = express.Router()
 
 //api/kontrols
 
 app.get('/',(req, res) => {
-  res.status(200).json(kontroles)
+  leerArchivoKontroles(res)
 })
 
 app.get('/:id', (req, res) => {
-  res.status(200).json(kontrol)
-  console.log('lol')
+  leerArchivoKordenes(req.params.id,res)
+  // res.status(200).json({kname: 'mom'})
 })
 
 app.post('/',(req,res) =>{

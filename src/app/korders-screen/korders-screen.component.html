@@ -6,6 +6,6 @@
 <div class="atras-div">
   <button [routerLink]="['/kontrols']" mat-raised-button color="primary"> Atrás </button>
 </div>
-<div>
+<div *ngIf="!loading">
   <button  mat-raised-button color="accent" *ngFor="let korder of kordenes"> {{korder.kname}} </button>
 </div>
