@@ -9,5 +9,5 @@
   <button [routerLink]="['/kontrols']" mat-raised-button color="primary"> Atrás </button>
 </div>
 <div *ngIf="!loading">
-  <button  mat-raised-button color="accent" *ngFor="let korder of kordenes" (click)="enviarOrden(korder.kode)"> {{korder.kname}} </button>
+  <button  mat-raised-button color="accent" *ngFor="let korder of kordenes" (click)="enviarOrden(korder)"> {{korder.kname}} </button>
 </div>

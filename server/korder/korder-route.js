@@ -1,10 +1,11 @@
 import express from 'express'
+import { enviarSerial } from '../serial'
 
 const app = express.Router()
 
 //api/korder
 app.post('/',(req,res) =>{
-  console.log(req.body)
+  enviarSerial(req.body)
 })
 
 
