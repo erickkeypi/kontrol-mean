@@ -12,6 +12,7 @@
   <ng-container *ngFor="let korder of kordenes">
     <!--VOID-->
     <button  mat-raised-button color="accent" *ngIf="korder.ktype == 'v'" (click)="enviarOrden(korder)"> {{korder.kname}} </button>
+
     <!--BOOLEANO-->
     <div class="toogle" *ngIf="korder.ktype == 'b'">
       <mat-slide-toggle
@@ -20,6 +21,7 @@
          {{korder.kname}}
        </mat-slide-toggle>
     </div>
+
     <!--STRING-->
     <div class="toogle" *ngIf="korder.ktype == 's'">
       <mat-form-field>
@@ -29,6 +31,7 @@
       (change)="enviarOrden(korder,korder.value)">
       </mat-form-field>
     </div>
+
     <!--NUMEROS-->
     <div class="slider" *ngIf="korder.ktype == 'h'">
       <span>{{korder.kname}}</span>

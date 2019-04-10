@@ -48,6 +48,7 @@ export class KontrolsScreenComponent implements OnInit {
 
   ngOnInit() {
     localStorage.removeItem('kmac');
+    localStorage.removeItem('kname');
 
     if ( !this.authService.isLoggedIn() ) {
       this.router.navigateByUrl('/');
@@ -59,6 +60,9 @@ export class KontrolsScreenComponent implements OnInit {
         this.loading = false;
       });
   }
-  setKmac(kmac) {localStorage.setItem('kmac', kmac); }
+  setKmac(k) {
+    localStorage.setItem('kmac', k.kmac);
+    localStorage.setItem('kname', k.kname);
+  }
 
 }

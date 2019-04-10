@@ -3,9 +3,10 @@ import { kontrolRoute } from './kontrol'
 import bodyParser from 'body-parser'
 import { authRoute } from './auth'
 import { korderRoute } from './korder'
+import path from 'path'
+import { abrirPuerto } from './serial'
 
-
-
+abrirPuerto()
 const app = express()
 
 app.use(bodyParser.json())
@@ -19,6 +20,10 @@ if(process.env.NODE_ENV === 'development'){
     next()
   })
 }
+if(process.env.NODE_ENV ==='production'){
+  app.use('/', express.static(path.join(process.cwd(),'dist/kontrol-MEAN')))
+}
+
 app.use('/api/kontrols',kontrolRoute)
 app.use('/api/signin', authRoute)
 app.use('/api/korder', korderRoute)

@@ -4,12 +4,15 @@
   "scripts": {
     "ng": "ng",
     "start": " concurrently -r \"npm run start:server\" \"npm run start:client\"",
-    "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "start:client": "ng serve --poll=2000",
-    "start:server": "NODE_ENV=development DEBUG=kontrol-MEAN* nodemon --exec babel-node server/index.js "
+    "start:server": "NODE_ENV=development DEBUG=kontrol-MEAN* nodemon --exec babel-node server/index.js ",
+    "build": "npm run build:client",
+    "build:client": "ng build --configuration=production",
+    "build:server": "babel server --out-dir dist/server",
+    "start:prod": "NODE_ENV=production DEBUG=kontrol-MEAN* nodemon --exec babel-node server/index.js "
   },
   "private": true,
   "dependencies": {
@@ -44,6 +47,7 @@
     "nodemon": "^1.18.10",
     "rxjs": "~6.3.3",
     "save": "^2.3.3",
+    "serialport": "^7.1.4",
     "tslib": "^1.9.0",
     "typescript": "~3.2.2",
     "url-join": "^4.0.0",

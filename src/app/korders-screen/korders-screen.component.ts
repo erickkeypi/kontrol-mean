@@ -47,7 +47,7 @@ import { KordersService } from './korders.service';
 })
 
 export class KordersScreenComponent implements OnInit, OnDestroy {
-  nombre = 'Arduino';
+  nombre = 'No Name';
 
   kordenes: Korder[];
   loading = true;
@@ -64,7 +64,7 @@ export class KordersScreenComponent implements OnInit, OnDestroy {
     if ( !this.authService.isLoggedIn() ) {
       this.router.navigateByUrl('/');
     }
-
+    this.nombre = localStorage.getItem('kname');
     this.sub = this.route.params.subscribe(params => {
       this.kordersService
         .getKorders(params.id)

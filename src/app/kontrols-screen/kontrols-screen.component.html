@@ -9,5 +9,5 @@
   <button [routerLink]="['/home']" mat-raised-button color="primary"> Atrás </button>
 </div>
 <div *ngIf="!loading">
-  <button  mat-raised-button color="accent" *ngFor="let kontrol of kontroles" [routerLink]="['/kontrols',kontrol.kid]" (click)="setKmac(kontrol.kmac)"> {{kontrol.kname}} </button>
+  <button  mat-raised-button color="accent" *ngFor="let kontrol of kontroles" [routerLink]="['/kontrols',kontrol.kid]" (click)="setKmac(kontrol)"> {{kontrol.kname}} </button>
 </div>
