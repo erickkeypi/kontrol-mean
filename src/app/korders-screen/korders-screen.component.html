@@ -9,5 +9,65 @@
   <button [routerLink]="['/kontrols']" mat-raised-button color="primary"> Atrás </button>
 </div>
 <div *ngIf="!loading">
-  <button  mat-raised-button color="accent" *ngFor="let korder of kordenes" (click)="enviarOrden(korder)"> {{korder.kname}} </button>
+  <ng-container *ngFor="let korder of kordenes">
+    <button  mat-raised-button color="accent" *ngIf="korder.ktype == 'v'" (click)="enviarOrden(korder)"> {{korder.kname}} </button>
+
+    <div class="slider" *ngIf="korder.ktype == 'h'">
+      <span>{{korder.kname}}</span>
+      <mat-slider
+      min="0"
+      max="100"
+      thumbLabel
+      ></mat-slider>
+    </div>
+
+    <div class="slider" *ngIf="korder.ktype == 'i'">
+      <span>{{korder.kname}}</span>
+      <mat-slider
+      min="0"
+      max="1000"
+      thumbLabel
+      ></mat-slider>
+    </div>
+
+    <div class="slider" *ngIf="korder.ktype == 'j'">
+      <span>{{korder.kname}}</span>
+      <mat-slider
+      thumbLabel
+      [displayWith]="formatLabel"
+      tickInterval="1000"
+      min="0"
+      max="1000000"
+      ></mat-slider>
+    </div>
+
+    <div class="slider" *ngIf="korder.ktype == 'o'">
+      <span>{{korder.kname}}</span>
+      <mat-slider
+      min="0"
+      max="255"
+      thumbLabel
+      ></mat-slider>
+    </div>
+    <div class="slider" *ngIf="korder.ktype == 'p'">
+      <span>{{korder.kname}}</span>
+      <mat-slider
+      min="0"
+      max="1023"
+      thumbLabel
+      ></mat-slider>
+    </div>
+    <div class="slider" *ngIf="korder.ktype == 'q'">
+      <span>{{korder.kname}}</span>
+      <mat-slider
+      min="0"
+      max="65535"
+      thumbLabel
+      [displayWith]="formatLabel"
+      tickInterval="1000"
+      ></mat-slider>
+    </div>
+
+  </ng-container>
+
 </div>

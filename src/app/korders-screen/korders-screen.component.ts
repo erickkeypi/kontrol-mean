@@ -12,6 +12,7 @@ import { KordersService } from './korders.service';
     div {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 1fr;
       margin: 10px;
     }
 
@@ -27,6 +28,13 @@ import { KordersService } from './korders.service';
     position: absolute;
     bottom: 45%;
     left: 35%;
+    }
+    .slider{
+      display: grid;
+      grid-template-columns: 0.3fr 0.7fr;
+      text-align: center;
+      align-items: center;
+      font-size: 18px;
     }
   `],
   providers: [KordersService]
@@ -71,5 +79,16 @@ export class KordersScreenComponent implements OnInit, OnDestroy {
     this.kordersService.enviarOrden({kmac, korder, valor})
       .subscribe()
     ;
+  }
+  formatLabel(value: number | null) {
+    if (!value) {
+      return 0;
+    }
+
+    if (value >= 1000) {
+      return Math.round(value / 1000) + 'k';
+    }
+
+    return value;
   }
 }
