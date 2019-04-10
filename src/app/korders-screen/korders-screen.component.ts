@@ -36,6 +36,12 @@ import { KordersService } from './korders.service';
       align-items: center;
       font-size: 18px;
     }
+    .toogle{
+      display: grid;
+      grid-template-columns: 1fr;
+      align-items: center;
+      font-size: 18px;
+    }
   `],
   providers: [KordersService]
 })
@@ -72,9 +78,8 @@ export class KordersScreenComponent implements OnInit, OnDestroy {
       this.sub.unsubscribe();
   }
 
-  enviarOrden(korder: Korder) {
+  enviarOrden(korder: Korder, valor?: any) {
     const kmac = localStorage.getItem('kmac');
-    const valor = 0;
     this.authService.snackMensaje('enviando orden');
     this.kordersService.enviarOrden({kmac, korder, valor})
       .subscribe()

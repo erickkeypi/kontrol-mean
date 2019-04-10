@@ -10,26 +10,38 @@
 </div>
 <div *ngIf="!loading">
   <ng-container *ngFor="let korder of kordenes">
+    <!--VOID-->
     <button  mat-raised-button color="accent" *ngIf="korder.ktype == 'v'" (click)="enviarOrden(korder)"> {{korder.kname}} </button>
-
+    <!--BOOLEANO-->
+    <div class="toogle" *ngIf="korder.ktype == 'b'">
+      <mat-slide-toggle
+      [(ngModel)]="korder.value"
+      (change)="enviarOrden(korder,korder.value)">
+         {{korder.kname}}
+       </mat-slide-toggle>
+    </div>
+    <!--STRING-->
+    <!--NUMEROS-->
     <div class="slider" *ngIf="korder.ktype == 'h'">
       <span>{{korder.kname}}</span>
       <mat-slider
       min="0"
       max="100"
       thumbLabel
+      [(ngModel)]="korder.value"
+      (change)="enviarOrden(korder,korder.value)"
       ></mat-slider>
     </div>
-
     <div class="slider" *ngIf="korder.ktype == 'i'">
       <span>{{korder.kname}}</span>
       <mat-slider
       min="0"
       max="1000"
       thumbLabel
+      [(ngModel)]="korder.value"
+      (change)="enviarOrden(korder,korder.value)"
       ></mat-slider>
     </div>
-
     <div class="slider" *ngIf="korder.ktype == 'j'">
       <span>{{korder.kname}}</span>
       <mat-slider
@@ -38,6 +50,8 @@
       tickInterval="1000"
       min="0"
       max="1000000"
+      [(ngModel)]="korder.value"
+      (change)="enviarOrden(korder,korder.value)"
       ></mat-slider>
     </div>
 
@@ -47,6 +61,8 @@
       min="0"
       max="255"
       thumbLabel
+      [(ngModel)]="korder.value"
+      (change)="enviarOrden(korder,korder.value)"
       ></mat-slider>
     </div>
     <div class="slider" *ngIf="korder.ktype == 'p'">
@@ -55,6 +71,8 @@
       min="0"
       max="1023"
       thumbLabel
+      [(ngModel)]="korder.value"
+      (change)="enviarOrden(korder,korder.value)"
       ></mat-slider>
     </div>
     <div class="slider" *ngIf="korder.ktype == 'q'">
@@ -65,9 +83,10 @@
       thumbLabel
       [displayWith]="formatLabel"
       tickInterval="1000"
+      [(ngModel)]="korder.value"
+      (change)="enviarOrden(korder,korder.value)"
       ></mat-slider>
     </div>
-
   </ng-container>
 
 </div>
