@@ -21,6 +21,14 @@
        </mat-slide-toggle>
     </div>
     <!--STRING-->
+    <div class="toogle" *ngIf="korder.ktype == 's'">
+      <mat-form-field>
+      <input
+      [(ngModel)]="korder.value"
+      matInput placeholder="{{korder.kname}}"
+      (change)="enviarOrden(korder,korder.value)">
+      </mat-form-field>
+    </div>
     <!--NUMEROS-->
     <div class="slider" *ngIf="korder.ktype == 'h'">
       <span>{{korder.kname}}</span>
