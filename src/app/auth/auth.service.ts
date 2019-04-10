@@ -6,6 +6,7 @@ import { Http, Headers, Response } from '@angular/http';
 import urljoin from 'url-join';
 import { map, catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import {MatSnackBar} from '@angular/material';
 
 @Injectable()
 
@@ -13,7 +14,11 @@ export class AuthService {
   currentUser?: User;
   apiUrl: string;
 
-  constructor(private router: Router, private http: Http) {
+  constructor(
+    private router: Router,
+    private http: Http,
+    private sb: MatSnackBar
+  ) {
     this.apiUrl = environment.apiUrl;
 
     if (this.isLoggedIn()) {
@@ -25,8 +30,8 @@ export class AuthService {
     localStorage.clear();
     this.currentUser = null;
     this.router.navigateByUrl('/');
+    this.sb.open('Sesion Cerrada', 'X', {duration: 2000});
   }
-
   signin(user: User) {
     const body = JSON.stringify(user);
     const headers = new Headers({ 'Content-Type': 'application/json'});
@@ -47,21 +52,17 @@ export class AuthService {
     localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify({userId, usuario}));
     this.router.navigateByUrl('/home');
+    this.snackMensaje('Sesion Iniciada');
   }
-
+  snackMensaje(mensaje: string) {
+    this.sb.open(mensaje, 'X', {duration: 2000});
+  }
   isLoggedIn() {
     return localStorage.getItem('token') !== null;
   }
   public handleError = (error: any) => {
-    const { error: { name }, message } = error;
-
-    if (name === 'TokenExpiredError') {
-      console.log('Tu sesion ha expirado');
-    } else if (name === 'JsonWebTokenError') {
-      console.log('Ha habido un problema con tu sesion');
-    } else {
-      console.log(message || 'Ha ocurrido un error. Intentalo nuevamente');
-    }
-    this.logout();
+    this.snackMensaje('Usuario y/o Contraseña Incorrecta');
+    console.log(error);
+    // this.logout();
   }
 }
