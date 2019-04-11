@@ -8,7 +8,9 @@ app.post('/',(req,res) =>{
   // console.log(`request: ${req.body}`)
   try{
     enviarSerial(req.body)
-    res.status(201)
+    res.status(200).json({
+      message: 'orden enviada'
+    })
   } catch(error){
     res.status(500).json({
       message: 'An error ocurred',

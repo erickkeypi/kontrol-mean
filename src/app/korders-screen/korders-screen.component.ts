@@ -72,7 +72,10 @@ export class KordersScreenComponent implements OnInit, OnDestroy {
     const kmac = localStorage.getItem('kmac');
     this.authService.snackMensaje('enviando orden');
     this.kordersService.enviarOrden({kmac, korder, valor})
-      .subscribe()
+      .subscribe(
+        () => {},
+        this.kordersService.handleError
+      )
     ;
   }
   formatLabel(value: number | null) {

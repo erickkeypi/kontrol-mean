@@ -21,7 +21,10 @@ export class KordersService {
     const url = urljoin(environment.apiUrl, 'korder');
     return this.http.post(url , body, { headers })
           .pipe(
-              map( (response: Response) => response.json()),
+              map( (response: Response) => {
+                response.json();
+                return response.json();
+              }),
               catchError((error: Response) => Observable.throw(error.json()))
           );
   }
