@@ -33,6 +33,7 @@ export class AuthService {
     this.sb.open('Sesion Cerrada', 'X', {duration: 2000});
   }
   signin(user: User) {
+    // this.login({token: 'lol', userId: '100', usuario: 'kirec'});
     const body = JSON.stringify(user);
     const headers = new Headers({ 'Content-Type': 'application/json'});
     const url = urljoin(this.apiUrl, 'signin');

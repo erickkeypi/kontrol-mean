@@ -13,6 +13,7 @@ fs.readFile(`${__dirname}/users.txt`,'utf8',(err,data)=>{
 
 
 app.post('/',(req,res) =>{
+  // console.log(`request: ${req.body}`)
   const { usuario, password } = req.body
   const user = buscarUsuario(users, usuario,password)
   if (!user) {

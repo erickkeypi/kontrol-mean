@@ -10,15 +10,17 @@ const app = express.Router()
 
 app.get('/',(req, res) => {
   leerArchivoKontroles(res)
+  // console.log(`request: ${req.body}`)
 })
 
 app.get('/:id', (req, res) => {
   leerArchivoKordenes(req.params.id,res)
+  // console.log(`request: ${req.body}`)
   // res.status(200).json({kname: 'mom'})
 })
 
 app.post('/',(req,res) =>{
-  console.log(req.body)
+  // console.log(`request: ${req.body}`)
 })
 
 

@@ -5,7 +5,7 @@ const app = express.Router()
 
 //api/korder
 app.post('/',(req,res) =>{
-
+  // console.log(`request: ${req.body}`)
   try{
     enviarSerial(req.body)
     res.status(201)
