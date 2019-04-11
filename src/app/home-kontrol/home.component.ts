@@ -11,20 +11,8 @@ import { Router } from '@angular/router';
       text-align: center;
     }
 
-    .space{
-      flex: 1 1 auto;
-    }
-
-    div {
-      display: flex;
-      flex-direction: column;
-      width: 90%;
-      margin: 40px auto;
-    }
-
-    div button{
+    button{
       margin-top: 20px;
-      font-size: 20px;
     }
   `]
 })

@@ -5,9 +5,9 @@
   <span> Kontroles </span>
   <span class="space"></span>
 </mat-toolbar>
-<div *ngIf="!loading" class="atras-div">
-  <button [routerLink]="['/home']" mat-raised-button color="primary"> Atrás </button>
+<div  *ngIf="!loading" class="atras-div">
+  <button [routerLink]="['/home']" mat-raised-button class="boton" color="primary"> Atrás </button>
 </div>
-<div *ngIf="!loading">
-  <button  mat-raised-button color="accent" *ngFor="let kontrol of kontroles" [routerLink]="['/kontrols',kontrol.kid]" (click)="setKmac(kontrol)"> {{kontrol.kname}} </button>
+<div class="grid-content" *ngIf="!loading">
+  <button  mat-raised-button class="boton" color="accent" *ngFor="let kontrol of kontroles" [routerLink]="['/kontrols',kontrol.kid]" (click)="setKmac(kontrol)"> {{kontrol.kname}} </button>
 </div>

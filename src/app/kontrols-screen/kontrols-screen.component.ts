@@ -8,28 +8,13 @@ import { Router } from '@angular/router';
   selector: 'app-kontrols-screen',
   templateUrl: './kontrols-screen.component.html',
   styles: [`
-    .space{
-      flex: auto;
-    }
-
-    div {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      margin: 10px;
-    }
-
-    div button{
+    button{
       margin: 5px;
-      font-size: 20px;
-    }
-    .atras-div {
-      display: block;
-      margin: 10px;
     }
     mat-spinner {
     position: absolute;
-    bottom: 45%;
-    left: 35%;
+    bottom: .5h;
+    left: .5w;
     }
   `],
   providers: [KontrolService]

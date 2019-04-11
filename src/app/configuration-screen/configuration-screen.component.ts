@@ -9,22 +9,6 @@ import { Router } from '@angular/router';
     .space{
       flex: 1 1 auto;
     }
-
-    div {
-      display: flex;
-      flex-direction: column;
-      margin: 40px auto;
-      width: 90%;
-    }
-
-    .atras-div {
-      display: block;
-      margin: 10px;
-    }
-
-    div button{
-      font-size: 20px;
-    }
   `]
 })
 

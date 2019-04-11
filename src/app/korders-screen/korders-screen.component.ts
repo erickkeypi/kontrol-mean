@@ -9,26 +9,10 @@ import { KordersService } from './korders.service';
   selector: 'app-korders-screen',
   templateUrl: './korders-screen.component.html',
   styles: [`
-    div {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-auto-rows: 1fr;
-      margin: 10px;
+    button{
+      margin: 5px;
     }
 
-    div button{
-      margin: 5px;
-      font-size: 20px;
-    }
-    .atras-div {
-      display: block;
-      margin: 10px;
-    }
-    mat-spinner {
-    position: absolute;
-    bottom: 45%;
-    left: 35%;
-    }
     .slider{
       display: grid;
       grid-template-columns: 0.3fr 0.7fr;
@@ -36,11 +20,17 @@ import { KordersService } from './korders.service';
       align-items: center;
       font-size: 18px;
     }
+
     .toogle{
       display: grid;
       grid-template-columns: 1fr;
       align-items: center;
       font-size: 18px;
+    }
+    mat-spinner {
+    position: absolute;
+    bottom: .5h;
+    left: .5w;
     }
   `],
   providers: [KordersService]

@@ -6,12 +6,12 @@
   <span class="space"></span>
 </mat-toolbar>
 <div *ngIf="!loading" class="atras-div">
-  <button [routerLink]="['/kontrols']" mat-raised-button color="primary"> Atrás </button>
+  <button [routerLink]="['/kontrols']" mat-raised-button class="boton" color="primary"> Atrás </button>
 </div>
-<div *ngIf="!loading">
+<div class="grid-content" *ngIf="!loading">
   <ng-container *ngFor="let korder of kordenes">
     <!--VOID-->
-    <button  mat-raised-button color="accent" *ngIf="korder.ktype == 'v'" (click)="enviarOrden(korder)"> {{korder.kname}} </button>
+    <button  mat-raised-button class="boton" color="accent" *ngIf="korder.ktype == 'v'" (click)="enviarOrden(korder)"> {{korder.kname}} </button>
 
     <!--BOOLEANO-->
     <div class="toogle" *ngIf="korder.ktype == 'b'">

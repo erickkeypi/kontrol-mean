@@ -5,6 +5,7 @@ body{
   margin: 0;
 }
 
+
 form {
   display: flex;
   flex-direction: column;
@@ -12,6 +13,59 @@ form {
   margin: 20px;
 }
 
+mat-spinner {
+position: absolute;
+bottom: 45%;
+left: 40%;
+}
+
+.boton{
+  font-size: 20px;
+}
+
+.div-content-flex {
+  display: flex;
+  flex-direction: column;
+  margin: 40px auto;
+  width: 90%;
+}
+
+.atras-div {
+  display: block;
+  margin: 10px;
+}
+
 .space{
   flex: auto;
+}
+
+.grid-content {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-auto-rows: 1fr;
+  margin: 10px;
+}
+
+@media screen and (max-width: 1200px){
+  .grid-content {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media screen and (max-width: 900px){
+  .grid-content {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 600px){
+  .grid-content {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 400px){
+  .grid-content {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
