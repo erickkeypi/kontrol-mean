@@ -16,5 +16,6 @@ server.listen(PORT, () => {
 //   debug(PORT)
 // })
 io.on('connection', function(socket) {
-	console.log('Un cliente se ha conectado', socket );
+	console.log('Un cliente se ha conectado', socket.id );
+  io.sockets.connected[socket.id].emit('message','conectado')
 });

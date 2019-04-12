@@ -7,8 +7,8 @@ const app = express.Router()
 app.post('/',(req,res) =>{
   // console.log(`request: ${req.body}`)
   try{
-    io.sockets.emit('message','enviando orden')
-    enviarSerial(req.body)
+    io.sockets.connected[req.body.socketId].emit('message',`enviando orden`)
+    //enviarSerial(req.body)
     res.status(200).json({
       message: 'orden enviada'
     })

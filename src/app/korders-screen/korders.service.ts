@@ -5,17 +5,19 @@ import urljoin from 'url-join';
 import { Korder } from './korder.model';
 import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
+import { AppComponent } from '../app.component';
 
 @Injectable()
 
 export class KordersService {
   private kontrolsUrl: string;
 
-  constructor( private http: Http) {
+  constructor( private http: Http, private appComponent: AppComponent) {
     this.kontrolsUrl = urljoin(environment.apiUrl, 'kontrols');
   }
 
   enviarOrden(mensaje) {
+    mensaje.socketId = this.appComponent.socket.id;
     const body = JSON.stringify(mensaje);
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const url = urljoin(environment.apiUrl, 'korder');

@@ -22,7 +22,7 @@ app.post('/',(req,res) =>{
     return handleLoginFailed(res,'usuario o contrasena no coincide')
   }
   const token = createToken(user)
-  io.sockets.emit('message','Sesion Iniciada')
+  io.sockets.emit('message',`${usuario} ha iniciado sesion`)
   res.status(200).json({
     message: 'login succeded',
     token,
