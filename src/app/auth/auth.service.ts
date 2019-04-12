@@ -53,7 +53,7 @@ export class AuthService {
     localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify({userId, usuario}));
     this.router.navigateByUrl('/home');
-    this.snackMensaje('Sesion Iniciada');
+    // this.snackMensaje('Sesion Iniciada');
   }
   snackMensaje(mensaje: string) {
     this.sb.open(mensaje, 'X', {duration: 2000});
@@ -62,7 +62,7 @@ export class AuthService {
     return localStorage.getItem('token') !== null;
   }
   public handleError = (error: any) => {
-    this.snackMensaje('Usuario y/o Contraseña Incorrecta');
+    // this.snackMensaje('Usuario y/o Contraseña Incorrecta');
     console.log(error);
     // this.logout();
   }

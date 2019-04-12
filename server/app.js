@@ -6,7 +6,12 @@ import { korderRoute } from './korder'
 import path from 'path'
 import { abrirPuerto } from './serial'
 
-abrirPuerto()
+const comName = '/dev/ttyACM0'
+// abrirPuerto(comName, (err) => {
+//   console.log('No se pudo realizar la conexion con el arduino')
+// })
+
+
 const app = express()
 
 app.use(bodyParser.json())

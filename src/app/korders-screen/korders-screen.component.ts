@@ -70,7 +70,7 @@ export class KordersScreenComponent implements OnInit, OnDestroy {
 
   enviarOrden(korder: Korder, valor?: any) {
     const kmac = localStorage.getItem('kmac');
-    this.authService.snackMensaje('enviando orden');
+    // this.authService.snackMensaje('enviando orden');
     this.kordersService.enviarOrden({kmac, korder, valor})
       .subscribe(
         () => {},

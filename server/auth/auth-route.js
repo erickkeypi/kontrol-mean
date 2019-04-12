@@ -2,6 +2,7 @@ import express from 'express'
 import jwt from 'jsonwebtoken'
 import { secret } from '../config'
 import fs from 'fs'
+import { io } from '../index.js'
 
 const app = express()
 
@@ -17,9 +18,11 @@ app.post('/',(req,res) =>{
   const { usuario, password } = req.body
   const user = buscarUsuario(users, usuario,password)
   if (!user) {
+    io.sockets.emit('message','Usuario y/o Contraseña Incorrecta')
     return handleLoginFailed(res,'usuario o contrasena no coincide')
   }
   const token = createToken(user)
+  io.sockets.emit('message','Sesion Iniciada')
   res.status(200).json({
     message: 'login succeded',
     token,

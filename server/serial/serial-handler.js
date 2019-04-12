@@ -11,12 +11,15 @@ function sendSerial(puerto,mensaje){
   }
 }
 
-const comName = '/dev/ttyACM0'
+
 var arduino
 
-export const abrirPuerto = (nombre)=>{
-  arduino = new serialport(comName)
+export const abrirPuerto = (nombre, errorHandler)=>{
+  arduino = new serialport(nombre)
   arduino.on('open',() => {console.log('arduino conectado')})
+  arduino.on('error',(error) => {
+    errorHandler(error)
+  })
 }
 
 export const enviarSerial = (obj) => {
