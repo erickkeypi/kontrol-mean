@@ -5,6 +5,7 @@ import {
 } from './funciones'
 
 export var kdirecciones = {}
+export var kontroles = []
 
 function leerKdirecciones(){
   fs.readFile(`${__dirname}/data/kaddresses.kaddr`,'utf-8',(err,data)=>{
@@ -18,11 +19,15 @@ function leerKdirecciones(){
 
 export const leerArchivoKontroles = (res) => {
   fs.readFile(`${__dirname}/data/data.ktrl`,'utf-8',(err,data)=>{
-    let kontroles = obtenerKontroles(data)
+    kontroles = obtenerKontroles(data)
     leerKdirecciones()
-    res.status(200).json(kontroles)
+    if(res){
+      res.status(200).json(kontroles)
+    }
   });
 }
+
+
 export const leerArchivoKordenes = (id, res) => {
   fs.readFile(`${__dirname}/data/korders/${id}.kord`,
     'utf-8',

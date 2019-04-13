@@ -1,16 +1,16 @@
 import express from 'express'
-import { enviarSerial } from '../serial'
 import { io } from '../index.js'
 const app = express.Router()
+import { buscarDispositivos } from '../serial'
 
-//api/korder
+//api/configuration
 app.post('/',(req,res) =>{
-  // console.log(`request: ${req.body}`)
+  // console.log(`request: ${req.body.socketId}`)
   try{
-    io.sockets.connected[req.body.socketId].emit('message',`enviando orden`)
-    enviarSerial(req.body)
+    io.sockets.emit('message','Iniciando la busqueda de nuevos dispositivos')
+    buscarDispositivos()
     res.status(200).json({
-      message: 'orden enviada'
+      message: 'recibido'
     })
   } catch(error){
     res.status(500).json({
@@ -19,6 +19,5 @@ app.post('/',(req,res) =>{
     })
   }
 })
-
 
 export default app
