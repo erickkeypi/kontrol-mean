@@ -5,11 +5,19 @@ import { authRoute } from './auth'
 import { korderRoute } from './korder'
 import path from 'path'
 import { abrirPuerto } from './serial'
+import { config } from '../config.js'
 
-const comName = '/dev/ttyACM0'
-// abrirPuerto(comName, (err) => {
-//   console.log('No se pudo realizar la conexion con el arduino')
-// })
+const comName = config.comName
+
+
+function conectarArduino(){
+  console.log('Iniciando la comunicacion con el Arduino')
+  abrirPuerto(comName, async (err) => {
+    console.log('No se pudo realizar la conexion con el arduino. Reintento en 10 segundos')
+    setTimeout(lol, 10000)
+  })
+}
+
 
 
 const app = express()
@@ -38,5 +46,7 @@ if(process.env.NODE_ENV ==='production'){
 app.use('/api/kontrols',kontrolRoute)
 app.use('/api/signin', authRoute)
 app.use('/api/korder', korderRoute)
+
+conectarArduino()
 
 export default app

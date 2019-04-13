@@ -1,11 +1,12 @@
 import Debug from 'debug'
 import app from './app'
+import { config } from '../config.js'
 /////////
 import {Server} from 'http'
 var server = Server(app)
 export var io = require('socket.io')(server)
 //////////////
-const PORT = 3000
+const PORT = config.PORT
 const debug = new Debug('kontrol-MEAN:root')
 
 

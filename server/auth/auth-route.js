@@ -1,12 +1,13 @@
 import express from 'express'
 import jwt from 'jsonwebtoken'
-import { secret } from '../config'
+import { config } from '../../config.js'
 import fs from 'fs'
 import { io } from '../index.js'
 
 const app = express()
 
 var users
+const secret = config.secret
 
 fs.readFile(`${__dirname}/users.txt`,'utf8',(err,data)=>{
   users = JSON.parse(data)
