@@ -1,6 +1,6 @@
 import Debug from 'debug'
 import app from './app'
-import { config } from '../config.js'
+import { config } from './config.js'
 /////////
 import {Server} from 'http'
 var server = Server(app)

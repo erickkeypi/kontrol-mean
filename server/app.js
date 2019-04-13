@@ -5,7 +5,7 @@ import { authRoute } from './auth'
 import { korderRoute } from './korder'
 import path from 'path'
 import { abrirPuerto } from './serial'
-import { config } from '../config.js'
+import { config } from './config.js'
 
 const comName = config.comName
 

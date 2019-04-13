@@ -1,6 +1,6 @@
 import express from 'express'
 import jwt from 'jsonwebtoken'
-import { config } from '../../config.js'
+import { config } from '../config.js'
 import fs from 'fs'
 import { io } from '../index.js'
 
