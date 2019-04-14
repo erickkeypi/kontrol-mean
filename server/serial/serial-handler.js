@@ -1,5 +1,15 @@
-import { kdirecciones, kontroles } from '../files'
+import {
+  kdirecciones,
+  kontroles,
+  agregarKontrolArchivo,
+  agregarKorderArchivo,
+  leerArchivoKontroles,
+  obtenerKontroles
+} from '../files'
 import serialport from 'serialport'
+import events from 'events'
+
+var  eventEmitter = new events.EventEmitter();
 
 var arduino
 var arduinoData = {
@@ -18,37 +28,20 @@ function sendSerial(puerto,mensaje){
     }
   }
 }
-function reconocer(){
-  console.log(kontroles)
-}
-
-function pedirKontrol(addr){
-  arduinoData.data =''
-  arduinoData.recibido=false
-  if(!addr){
-    arduinoData.waiter="pedirKontrol"
-    sendSerial(arduino,'{KONTROL}')
-  } else {
-    arduinoData.waiter="pedirKontrol"
-    sendSerial(arduino,`${addr}{KONTROL}`)
-  }
-}
-
-function pedirKontrolP2(){
-
-}
 
 function dataHandler(datos){
   arduinoData.data +=datos.toString()
   if(arduinoData.data.includes("{KOK}")){
-    arduinoData.recibido = true
-  }
-
-  if(arduinoData.recibido){
     switch (arduinoData.waiter) {
       case 'pedirKontrol':
-        console.log(arduinoData.data)
+        eventEmitter.emit('pedirKontrol2')
         break;
+
+      case 'pedirKontrol2':
+        leerArchivoKontroles()
+        eventEmitter.emit('pedirKontrol3')
+        break;
+
       default:
 
     }
@@ -56,6 +49,49 @@ function dataHandler(datos){
     arduinoData.recibido=false
   }
 }
+
+
+/////////////////
+eventEmitter.on('reconocer',() =>{
+  if(arduino){
+    if(arduino.isOpen){
+      if(kontroles.length <10){
+        arduinoData.addr = ''
+        eventEmitter.emit('pedirKontrol')
+      }else{
+        console.log('mas de un kontrol')
+      }
+    }
+  }
+})
+
+eventEmitter.on('pedirKontrol',() => {
+  arduinoData.data =''
+  arduinoData.recibido=false
+  arduinoData.waiter="pedirKontrol"
+  sendSerial(arduino,`${arduinoData.addr}{KONTROL}`)
+})
+
+eventEmitter.on('pedirKontrol2',() => {
+  let ktrl = obtenerKontroles(arduinoData.data);
+  let dispositivoRepetido = false;
+  for (let k in kontroles){
+
+  }
+
+  if(!dispositivoRepetido){
+    console.log("agregando el dispositivo y pidiendo las ordenes");
+    agregarKontrolArchivo(arduinoData.data,arduinoData.addr);
+    arduinoData.waiter = "pedirKontrol2";
+    arduinoData.data ="";
+    sendSerial(arduino,`${arduinoData.addr}{KORDERS}`)
+  }
+})
+
+eventEmitter.on('pedirKontrol3', () => {
+  var nombreArchivo = kontroles[kontroles.length-1].kid;
+  agregarKorderArchivo(arduinoData.data,nombreArchivo);
+})
 
 //////////////////////////////////
 export const abrirPuerto = (nombre, errorHandler)=>{
@@ -91,7 +127,8 @@ export const enviarSerial = (obj) => {
 export const buscarDispositivos = () => {
   if(arduino){
     if(arduino.isOpen){
-      reconocer()
+      console.log('reconociendo')
+      eventEmitter.emit('reconocer')
     }
   }
 }

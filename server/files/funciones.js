@@ -1,4 +1,5 @@
 
+
 function convertirKontroles(kontroles){
   var kon = [];
   for ( let i in kontroles){
