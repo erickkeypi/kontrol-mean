@@ -1,29 +1,22 @@
 
 {
-kname: Arduino 1;
+kname: Host;
 kid: 1;
 kports: 3;
 kmac: 20;
 kversion: 1.0;
 }
 {
-kname: Arduino 1;
-kid: 1;
-kports: 3;
-kmac: 20;
+kname: Arduino 3;
+kid: 2;
+kports: 0;
+kmac: 521;
 kversion: 1.0;
 }
 {
-kname: Arduino 1;
-kid: 1;
-kports: 3;
-kmac: 20;
-kversion: 1.0;
-}
-{
-kname: Arduino 1;
-kid: 1;
-kports: 3;
-kmac: 20;
+kname: Arduino 2;
+kid: 2;
+kports: 0;
+kmac: 234;
 kversion: 1.0;
 }

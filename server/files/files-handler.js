@@ -7,7 +7,7 @@ import {
 export var kdirecciones = {}
 export var kontroles = []
 
-function agregarKdireccionesArchivo(){
+export const agregarKdireccionesArchivo = () => {
   let kdir = "";
   for (let key in kdirecciones){
     kdir = kdir.concat(`${key}:${kdirecciones[key]}\n`);
@@ -27,12 +27,15 @@ function leerKdirecciones(){
   });
 }
 
-export const leerArchivoKontroles = (res) => {
+export const leerArchivoKontroles = (res, callback) => {
   fs.readFile(`${__dirname}/data/data.ktrl`,'utf-8',(err,data)=>{
     kontroles = obtenerKontroles(data)
     leerKdirecciones()
     if(res){
       res.status(200).json(kontroles)
+    }
+    if(callback){
+      callback()
     }
   });
 }

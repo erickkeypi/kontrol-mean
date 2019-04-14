@@ -3,14 +3,17 @@ import {
   kontroles,
   agregarKontrolArchivo,
   agregarKorderArchivo,
+  agregarKdireccionesArchivo,
   leerArchivoKontroles,
   obtenerKontroles
 } from '../files'
 import serialport from 'serialport'
 import events from 'events'
+import { io } from '../index.js'
 
 var  eventEmitter = new events.EventEmitter();
-
+var kl = 0;
+var puertoActual = 1;
 var arduino
 var arduinoData = {
   recibido: false,
@@ -18,7 +21,7 @@ var arduinoData = {
   waiter: '',
   addr: ''
 }
-
+const timeoutBusqueda = 750
 
 function sendSerial(puerto,mensaje){
   if(puerto){
@@ -38,15 +41,14 @@ function dataHandler(datos){
         break;
 
       case 'pedirKontrol2':
-        leerArchivoKontroles()
         eventEmitter.emit('pedirKontrol3')
         break;
 
       default:
-
+      arduinoData.data =''
+      arduinoData.recibido=false
     }
-    arduinoData.data =''
-    arduinoData.recibido=false
+
   }
 }
 
@@ -55,11 +57,39 @@ function dataHandler(datos){
 eventEmitter.on('reconocer',() =>{
   if(arduino){
     if(arduino.isOpen){
-      if(kontroles.length <10){
+      if(kontroles.length <1){
         arduinoData.addr = ''
         eventEmitter.emit('pedirKontrol')
+        setTimeout(() => {
+          eventEmitter.emit('reconocer')
+        },timeoutBusqueda)
       }else{
-        console.log('mas de un kontrol')
+
+        if(kl < kontroles.length){
+          let cantidadPuertos = parseInt(kontroles[kl].kports);
+          let direccion = kdirecciones[kontroles[kl].kmac];
+          if(!direccion){
+            direccion = "";
+            kdirecciones[kontroles[kl].kmac] = direccion;
+          }
+          if(puertoActual <= cantidadPuertos){
+            arduinoData.addr = `${direccion}${puertoActual}/`;
+            eventEmitter.emit('pedirKontrol')
+            puertoActual++;
+          }
+          else{
+            puertoActual=1;
+            kl++;
+          }
+          setTimeout(() => {
+            eventEmitter.emit('reconocer')
+          },timeoutBusqueda)
+        }
+        else{
+          console.log("reconocimiento terminado");
+          io.sockets.emit('message','Termino la busqueda y actualizacion de los dispositivos')
+          kl=0;
+        }
       }
     }
   }
@@ -76,7 +106,18 @@ eventEmitter.on('pedirKontrol2',() => {
   let ktrl = obtenerKontroles(arduinoData.data);
   let dispositivoRepetido = false;
   for (let k in kontroles){
-
+    if(kontroles[k].kmac === ktrl[0].kmac){
+        console.log("ya existe el dispositivo");
+        dispositivoRepetido =true;
+        arduinoData.data ="";
+        if(arduinoData.addr !== kdirecciones[kontroles[k].kmac]){
+          console.log("El dispositivo cambio de direccion");
+          kdirecciones[kontroles[k].kmac]=arduinoData.addr;
+          agregarKdireccionesArchivo();
+          console.log("Se actualizo la direccion");
+        }
+        break;
+      }
   }
 
   if(!dispositivoRepetido){
@@ -88,7 +129,11 @@ eventEmitter.on('pedirKontrol2',() => {
   }
 })
 
-eventEmitter.on('pedirKontrol3', () => {
+eventEmitter.on('pedirKontrol3',() => {
+  leerArchivoKontroles(null, () => { eventEmitter.emit('pedirKontrol4') })
+})
+
+eventEmitter.on('pedirKontrol4', () => {
   var nombreArchivo = kontroles[kontroles.length-1].kid;
   agregarKorderArchivo(arduinoData.data,nombreArchivo);
 })

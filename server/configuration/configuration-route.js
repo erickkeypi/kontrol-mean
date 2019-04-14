@@ -7,7 +7,7 @@ import { buscarDispositivos } from '../serial'
 app.post('/',(req,res) =>{
   // console.log(`request: ${req.body.socketId}`)
   try{
-    io.sockets.emit('message','Iniciando la busqueda de nuevos dispositivos')
+    io.sockets.emit('message','Iniciando la busqueda y actualizacion de los dispositivos')
     buscarDispositivos()
     res.status(200).json({
       message: 'recibido'
