@@ -18,6 +18,8 @@ import { ConfigurationScreenComponent } from './configuration-screen/configurati
 import { KontrolsScreenComponent } from './kontrols-screen/kontrols-screen.component';
 import { KordersScreenComponent } from './korders-screen/korders-screen.component';
 import { HomeScreenComponent } from './home-screen/home-screen.component';
+import { SingleKontrolScreenComponent } from './single-kontrol-screen/single-kontrol-screen.component';
+import { KindicatorsScreenComponent } from './kindicators-screen/kindicators-screen.component';
 
 import { MomentModule } from 'angular2-moment';
 import { Routing } from './app.routing';
@@ -30,7 +32,9 @@ import { Routing } from './app.routing';
     ConfigurationScreenComponent,
     KontrolsScreenComponent,
     KordersScreenComponent,
-    HomeScreenComponent
+    HomeScreenComponent,
+    SingleKontrolScreenComponent,
+    KindicatorsScreenComponent
   ],
   imports: [
     BrowserModule,

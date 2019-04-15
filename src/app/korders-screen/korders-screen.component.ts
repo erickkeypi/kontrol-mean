@@ -42,6 +42,7 @@ export class KordersScreenComponent implements OnInit, OnDestroy {
   kordenes: Korder[];
   loading = true;
   sub: any;
+  id: string;
 
   constructor(
     private authService: AuthService,
@@ -56,6 +57,7 @@ export class KordersScreenComponent implements OnInit, OnDestroy {
     }
     this.nombre = localStorage.getItem('kname');
     this.sub = this.route.params.subscribe(params => {
+      this.id = params.id;
       this.kordersService
         .getKorders(params.id)
         .then((korders: Korder[]) => {
