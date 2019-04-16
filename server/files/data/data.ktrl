@@ -13,10 +13,3 @@ kports: 0;
 kmac: 521;
 kversion: 1.0;
 }
-{
-kname: Arduino 2;
-kid: 2;
-kports: 0;
-kmac: 234;
-kversion: 1.0;
-}

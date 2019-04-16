@@ -53,6 +53,18 @@ export const leerArchivoKordenes = (id, res) => {
   });
 }
 
+export const leerArchivoKindicaciones = (id, res) => {
+  fs.readFile(`${__dirname}/data/kindicators/${id}.kind`,
+    'utf-8',
+    (err,data)=>{
+      let indicadores = obtenerKordenes(data)
+      // console.log(ordenes)
+      // res.status(200).json({kname: 'mom'})
+      res.status(200).json(indicadores)
+    // console.log(data)
+  });
+}
+
 export const agregarKontrolArchivo = (texto, addr) => {
   let kontroles = obtenerKontroles(texto);
   kdirecciones[kontroles[0].kmac] = addr;
@@ -83,5 +95,20 @@ export const agregarKorderArchivo = (texto,id) => {
   }
   fs.writeFile(`${__dirname}/data/korders/${id}.kord`,"",()=>{});
   var logStream = fs.createWriteStream(`${__dirname}/data/korders/${id}.kord`,{'flags':'a'});
+  logStream.end(kor);
+}
+
+export const agregarKindicacionesArchivo = (texto, id) => {
+  let kindicaciones = obtenerKordenes(texto);
+  let kor =""
+  for (let i in kindicaciones){
+    kor = kor.concat("\n{\n");
+    for(let key in kindicaciones[i]){
+      kor = kor.concat(`${key}: ${kindicaciones[i][key]};\n`);
+    }
+    kor = kor.concat("}");
+  }
+  fs.writeFile(`${__dirname}/data/kindicators/${id}.kind`,"",()=>{});
+  var logStream = fs.createWriteStream(`${__dirname}/data/kindicators/${id}.kind`,{'flags':'a'});
   logStream.end(kor);
 }

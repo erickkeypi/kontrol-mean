@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './single-kontrol-screen.component.html',
   styles: [`
     button{
-      margin-bottom: 20px;
+      margin: 5px;
     }
     .div-content-flex{
       margin-top:0;

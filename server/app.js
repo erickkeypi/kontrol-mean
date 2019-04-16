@@ -3,6 +3,7 @@ import { kontrolRoute } from './kontrol'
 import bodyParser from 'body-parser'
 import { authRoute } from './auth'
 import { korderRoute } from './korder'
+import { kindicatorsRoute } from './kindicators'
 import { configurationRoute } from './configuration'
 import path from 'path'
 import { abrirPuerto } from './serial'
@@ -47,7 +48,8 @@ if(process.env.NODE_ENV ==='production'){
 
 app.use('/api/kontrols',kontrolRoute)
 app.use('/api/signin', authRoute)
-app.use('/api/korder', korderRoute)
+app.use('/api/korders', korderRoute)
+app.use('/api/kindicators', kindicatorsRoute)
 app.use('/api/configuration',configurationRoute)
 
 conectarArduino()

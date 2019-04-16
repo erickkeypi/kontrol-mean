@@ -4,6 +4,7 @@ import {
   agregarKontrolArchivo,
   agregarKorderArchivo,
   agregarKdireccionesArchivo,
+  agregarKindicacionesArchivo,
   leerArchivoKontroles,
   obtenerKontroles
 } from '../files'
@@ -19,9 +20,10 @@ var arduinoData = {
   recibido: false,
   data: '',
   waiter: '',
-  addr: ''
+  addr: '',
+  kmac: ''
 }
-const timeoutBusqueda = 750
+const timeoutBusqueda = 1000
 
 function sendSerial(puerto,mensaje){
   if(puerto){
@@ -42,6 +44,14 @@ function dataHandler(datos){
 
       case 'pedirKontrol2':
         eventEmitter.emit('pedirKontrol3')
+        break;
+
+      case 'pedirKontrol5':
+        eventEmitter.emit('pedirKontrol6')
+        break;
+
+      case 'pedirIndicaciones':
+        eventEmitter.emit('pedirIndicaciones')
         break;
 
       default:
@@ -136,6 +146,28 @@ eventEmitter.on('pedirKontrol3',() => {
 eventEmitter.on('pedirKontrol4', () => {
   var nombreArchivo = kontroles[kontroles.length-1].kid;
   agregarKorderArchivo(arduinoData.data,nombreArchivo);
+  eventEmitter.emit('pedirKontrol5')
+})
+
+eventEmitter.on('pedirKontrol5', () => {
+  arduinoData.waiter = 'pedirKontrol5'
+  arduinoData.data = ''
+  sendSerial(arduino,`${arduinoData.addr}{KINDICATORS}`)
+})
+
+eventEmitter.on('pedirKontrol6', () => {
+  var nombreArchivo = kontroles[kontroles.length-1].kid;
+  agregarKindicacionesArchivo(arduinoData.data,nombreArchivo);
+  // console.log(arduinoData.data)
+})
+
+eventEmitter.on('pedirIndicaciones', () => {
+  let l = arduinoData.data.indexOf('{KOK}')
+  let dat = arduinoData.data.substring(0,l)
+  // let ko = dat.match(RegExp('{.+}','g'));
+  io.sockets.emit('indicaciones',{kmac:arduinoData.kmac, indicaciones:dat})
+  arduinoData.data = ''
+  arduinoData.waiter = ''
 })
 
 //////////////////////////////////
@@ -176,4 +208,11 @@ export const buscarDispositivos = () => {
       eventEmitter.emit('reconocer')
     }
   }
+}
+
+export const obtenerIndicaciones = (kmac) =>{
+  arduinoData.data=''
+  arduinoData.waiter = 'pedirIndicaciones'
+  arduinoData.kmac = kmac
+  sendSerial(arduino,`${kdirecciones[kmac]}{KINDICATIONS}`)
 }

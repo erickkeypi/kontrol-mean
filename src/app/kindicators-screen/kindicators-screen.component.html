@@ -1,8 +1,95 @@
-<mat-toolbar color="secondary">
+<mat-spinner *ngIf="loading"></mat-spinner>
+
+<mat-toolbar *ngIf="!loading" color="secondary">
   <span class="space"></span>
   <span> {{ nombre }} </span>
   <span class="space"></span>
 </mat-toolbar>
-<div class="atras-div">
+<div *ngIf="!loading" class="atras-div">
   <button [routerLink]="['/kontrols',id]" mat-raised-button class="boton" color="primary"> Atrás </button>
+</div>
+
+
+<div class="grid-content" *ngIf="!loading">
+  <ng-container *ngFor="let kindicator of kindicadores">
+    <!--VOID-->
+    <button  mat-raised-button class="boton" color="accent" *ngIf="kindicator.ktype == 'v'" (click)="enviarOrden(kindicator)"> {{kindicator.kname}} </button>
+
+    <!--BOOLEANO-->
+    <div class="toogle" *ngIf="kindicator.ktype == 'b'">
+      <mat-slide-toggle
+      [(ngModel)]="kindicator.value">
+         {{kindicator.kname}}
+       </mat-slide-toggle>
+    </div>
+
+    <!--STRING-->
+    <div class="toogle" *ngIf="kindicator.ktype == 's'">
+      <p>{{kindicator.kode}}: {{kindicator.value}} </p>
+    </div>
+
+    <!--NUMEROS-->
+    <div class="slider" *ngIf="kindicator.ktype == 'h'">
+      <span>{{kindicator.kname}}</span>
+      <mat-slider
+      min="0"
+      max="100"
+      thumbLabel
+      [(ngModel)]="kindicator.value"
+      ></mat-slider>
+    </div>
+    <div class="slider" *ngIf="kindicator.ktype == 'i'">
+      <span>{{kindicator.kname}}</span>
+      <mat-slider
+      min="0"
+      max="1000"
+      thumbLabel
+      [disabled] = "true"
+      [(ngModel)]="kindicator.value"
+      ></mat-slider>
+      <span>{{kindicator.value}}</span>
+    </div>
+    <div class="slider" *ngIf="kindicator.ktype == 'j'">
+      <span>{{kindicator.kname}}</span>
+      <mat-slider
+      thumbLabel
+      [displayWith]="formatLabel"
+      tickInterval="1000"
+      min="0"
+      max="1000000"
+      [(ngModel)]="kindicator.value"
+      ></mat-slider>
+    </div>
+
+    <div class="slider" *ngIf="kindicator.ktype == 'o'">
+      <span>{{kindicator.kname}}</span>
+      <mat-slider
+      min="0"
+      max="255"
+      thumbLabel
+      [(ngModel)]="kindicator.value"
+      ></mat-slider>
+    </div>
+    <div class="slider" *ngIf="kindicator.ktype == 'p'">
+      <span>{{kindicator.kname}}</span>
+      <mat-slider
+      min="0"
+      max="1023"
+      thumbLabel
+      [(ngModel)]="kindicator.value"
+      ></mat-slider>
+    </div>
+    <div class="slider" *ngIf="kindicator.ktype == 'q'">
+      <span>{{kindicator.kname}}</span>
+      <mat-slider
+      min="0"
+      max="65535"
+      thumbLabel
+      [displayWith]="formatLabel"
+      tickInterval="1000"
+      [(ngModel)]="kindicator.value"
+      ></mat-slider>
+    </div>
+  </ng-container>
+
 </div>

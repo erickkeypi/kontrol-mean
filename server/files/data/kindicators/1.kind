@@ -1,0 +1,11 @@
+
+{
+kname: led;
+kode: led;
+ktype: s;
+}
+{
+kname: intervalo;
+kode: iin;
+ktype: i;
+}

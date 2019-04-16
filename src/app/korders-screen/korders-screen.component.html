@@ -8,6 +8,7 @@
 <div *ngIf="!loading" class="atras-div">
   <button [routerLink]="['/kontrols',id]" mat-raised-button class="boton" color="primary"> Atrás </button>
 </div>
+
 <div class="grid-content" *ngIf="!loading">
   <ng-container *ngFor="let korder of kordenes">
     <!--VOID-->

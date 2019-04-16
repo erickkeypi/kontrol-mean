@@ -1,27 +1,36 @@
 import { Injectable } from '@angular/core';
+import { Kindicator } from './kindicator.model';
 import { Http, Headers, Response  } from '@angular/http';
 import { environment } from '../../environments/environment';
 import urljoin from 'url-join';
-import { Korder } from './korder.model';
 import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { AppComponent } from '../app.component';
+
 
 @Injectable()
 
-export class KordersService {
+export class KindicatorsService {
   private kontrolsUrl: string;
 
-  constructor( private http: Http, private appComponent: AppComponent) {
-    this.kontrolsUrl = urljoin(environment.apiUrl, 'korders');
+  constructor( private http: Http) {
+    this.kontrolsUrl = urljoin(environment.apiUrl, 'kindicators');
   }
 
-  enviarOrden(mensaje) {
-    mensaje.socketId = this.appComponent.socket.id;
-    const body = JSON.stringify(mensaje);
+  getKindicators(id): Promise<void | Kindicator[]> {
+    const url = urljoin(this.kontrolsUrl, id);
+    return this.http.get(url)
+          .toPromise()
+          .then(response => response.json() as Kindicator[])
+          .catch(this.handleError);
+  }
+
+  obtenerIndicaciones() {
+    const body = {
+      kmac: localStorage.getItem('kmac')
+    };
+
     const headers = new Headers({ 'Content-Type': 'application/json' });
-    const url = urljoin(environment.apiUrl, 'korders');
-    return this.http.post(url , body, { headers })
+    return this.http.post(this.kontrolsUrl , body, { headers })
           .pipe(
               map( (response: Response) => {
                 response.json();
@@ -31,13 +40,6 @@ export class KordersService {
           );
   }
 
-  getKorders(id): Promise<void | Korder[]> {
-    const url = urljoin(this.kontrolsUrl, id);
-    return this.http.get(url)
-          .toPromise()
-          .then(response => response.json() as Korder[])
-          .catch(this.handleError);
-  }
   handleError(error: any) {
   const errMsg = error.message ? error.message :
   error.status ? `${error.status} - ${error.statusText}` : 'server error';
